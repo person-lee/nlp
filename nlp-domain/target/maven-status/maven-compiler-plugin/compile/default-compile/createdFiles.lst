@@ -1,0 +1,12 @@
+com\lbc\nlp_domain\MaxSim.class
+com\lbc\nlp_domain\LevelCode.class
+com\lbc\nlp_domain\word2vec\Neuron.class
+com\lbc\nlp_domain\PartitionNormDefine.class
+com\lbc\nlp_domain\word2vec\WordEntry.class
+com\lbc\nlp_domain\WordWeight$Builder.class
+com\lbc\nlp_domain\word2vec\HiddenNeuron.class
+com\lbc\nlp_domain\Word.class
+com\lbc\nlp_domain\BitArray.class
+com\lbc\nlp_domain\WordWeight.class
+com\lbc\nlp_domain\SpeechDefine.class
+com\lbc\nlp_domain\word2vec\WordNeuron.class

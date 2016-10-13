@@ -1,0 +1,123 @@
+2016-09-27 21:14:13.156 [main] WARN  FileUtils - Fail to close: 
+java.lang.NullPointerException
+	at com.lbc.nlp_algorithm.prepocess.core.utils.FileUtils.closeQuietly(FileUtils.java:16)
+	at com.lbc.nlp_algorithm.loadFile.loadData.LoadTrainData.loadData(LoadTrainData.java:72)
+	at liblinear.LrTrain.main(LrTrain.java:27)
+2016-09-27 21:14:13.161 [main] WARN  FileUtils - Fail to close: 
+java.lang.NullPointerException
+	at com.lbc.nlp_algorithm.prepocess.core.utils.FileUtils.closeQuietly(FileUtils.java:16)
+	at com.lbc.nlp_algorithm.loadFile.loadData.LoadTrainData.loadData(LoadTrainData.java:72)
+	at liblinear.LrTrain.main(LrTrain.java:27)
+2016-09-27 21:15:00.453 [main] WARN  FileUtils - Fail to close: 
+java.lang.NullPointerException
+	at com.lbc.nlp_algorithm.prepocess.core.utils.FileUtils.closeQuietly(FileUtils.java:16)
+	at com.lbc.nlp_algorithm.loadFile.loadData.LoadTrainData.loadData(LoadTrainData.java:72)
+	at liblinear.LrTrain.main(LrTrain.java:27)
+2016-09-27 21:15:00.457 [main] WARN  FileUtils - Fail to close: 
+java.lang.NullPointerException
+	at com.lbc.nlp_algorithm.prepocess.core.utils.FileUtils.closeQuietly(FileUtils.java:16)
+	at com.lbc.nlp_algorithm.loadFile.loadData.LoadTrainData.loadData(LoadTrainData.java:72)
+	at liblinear.LrTrain.main(LrTrain.java:27)
+2016-09-27 21:15:19.988 [main] WARN  FileUtils - Fail to close: 
+java.lang.NullPointerException
+	at com.lbc.nlp_algorithm.prepocess.core.utils.FileUtils.closeQuietly(FileUtils.java:16)
+	at com.lbc.nlp_algorithm.loadFile.loadData.LoadTrainData.loadData(LoadTrainData.java:72)
+	at liblinear.LrTrain.main(LrTrain.java:27)
+2016-09-27 21:15:19.991 [main] WARN  FileUtils - Fail to close: 
+java.lang.NullPointerException
+	at com.lbc.nlp_algorithm.prepocess.core.utils.FileUtils.closeQuietly(FileUtils.java:16)
+	at com.lbc.nlp_algorithm.loadFile.loadData.LoadTrainData.loadData(LoadTrainData.java:72)
+	at liblinear.LrTrain.main(LrTrain.java:27)
+2016-09-27 21:17:17.683 [main] WARN  FileUtils - Fail to close: 
+java.lang.NullPointerException
+	at com.lbc.nlp_algorithm.prepocess.core.utils.FileUtils.closeQuietly(FileUtils.java:16)
+	at com.lbc.nlp_algorithm.loadFile.loadData.LoadTrainData.loadData(LoadTrainData.java:72)
+	at liblinear.LrTrain.main(LrTrain.java:27)
+2016-09-27 21:17:17.686 [main] WARN  FileUtils - Fail to close: 
+java.lang.NullPointerException
+	at com.lbc.nlp_algorithm.prepocess.core.utils.FileUtils.closeQuietly(FileUtils.java:16)
+	at com.lbc.nlp_algorithm.loadFile.loadData.LoadTrainData.loadData(LoadTrainData.java:72)
+	at liblinear.LrTrain.main(LrTrain.java:27)
+2016-09-27 21:17:31.245 [main] WARN  FileUtils - Fail to close: 
+java.lang.NullPointerException
+	at com.lbc.nlp_algorithm.prepocess.core.utils.FileUtils.closeQuietly(FileUtils.java:16)
+	at com.lbc.nlp_algorithm.loadFile.loadData.LoadTrainData.loadData(LoadTrainData.java:72)
+	at liblinear.LrTrain.main(LrTrain.java:27)
+2016-09-27 21:17:31.249 [main] WARN  FileUtils - Fail to close: 
+java.lang.NullPointerException
+	at com.lbc.nlp_algorithm.prepocess.core.utils.FileUtils.closeQuietly(FileUtils.java:16)
+	at com.lbc.nlp_algorithm.loadFile.loadData.LoadTrainData.loadData(LoadTrainData.java:72)
+	at liblinear.LrTrain.main(LrTrain.java:27)
+2016-09-27 21:17:49.615 [main] WARN  FileUtils - Fail to close: 
+java.lang.NullPointerException
+	at com.lbc.nlp_algorithm.prepocess.core.utils.FileUtils.closeQuietly(FileUtils.java:16)
+	at com.lbc.nlp_algorithm.loadFile.loadData.LoadTrainData.loadData(LoadTrainData.java:72)
+	at liblinear.LrTrain.main(LrTrain.java:27)
+2016-09-27 21:17:49.619 [main] WARN  FileUtils - Fail to close: 
+java.lang.NullPointerException
+	at com.lbc.nlp_algorithm.prepocess.core.utils.FileUtils.closeQuietly(FileUtils.java:16)
+	at com.lbc.nlp_algorithm.loadFile.loadData.LoadTrainData.loadData(LoadTrainData.java:72)
+	at liblinear.LrTrain.main(LrTrain.java:27)
+2016-09-27 21:19:07.196 [main] WARN  FileUtils - Fail to close: 
+java.lang.NullPointerException
+	at com.lbc.nlp_algorithm.prepocess.core.utils.FileUtils.closeQuietly(FileUtils.java:16)
+	at com.lbc.nlp_algorithm.loadFile.loadData.LoadTrainData.loadData(LoadTrainData.java:72)
+	at liblinear.LrTrain.main(LrTrain.java:27)
+2016-09-27 21:19:07.200 [main] WARN  FileUtils - Fail to close: 
+java.lang.NullPointerException
+	at com.lbc.nlp_algorithm.prepocess.core.utils.FileUtils.closeQuietly(FileUtils.java:16)
+	at com.lbc.nlp_algorithm.loadFile.loadData.LoadTrainData.loadData(LoadTrainData.java:72)
+	at liblinear.LrTrain.main(LrTrain.java:27)
+2016-09-27 21:19:54.578 [main] WARN  FileUtils - Fail to close: 
+java.lang.NullPointerException
+	at com.lbc.nlp_algorithm.prepocess.core.utils.FileUtils.closeQuietly(FileUtils.java:16)
+	at com.lbc.nlp_algorithm.loadFile.loadData.LoadTrainData.loadData(LoadTrainData.java:72)
+	at liblinear.LrTrain.main(LrTrain.java:27)
+2016-09-27 21:19:54.582 [main] WARN  FileUtils - Fail to close: 
+java.lang.NullPointerException
+	at com.lbc.nlp_algorithm.prepocess.core.utils.FileUtils.closeQuietly(FileUtils.java:16)
+	at com.lbc.nlp_algorithm.loadFile.loadData.LoadTrainData.loadData(LoadTrainData.java:72)
+	at liblinear.LrTrain.main(LrTrain.java:27)
+2016-09-27 21:20:36.240 [main] WARN  FileUtils - Fail to close: 
+java.lang.NullPointerException
+	at com.lbc.nlp_algorithm.prepocess.core.utils.FileUtils.closeQuietly(FileUtils.java:16)
+	at com.lbc.nlp_algorithm.loadFile.loadData.LoadTrainData.loadData(LoadTrainData.java:72)
+	at liblinear.LrTrain.main(LrTrain.java:27)
+2016-09-27 21:20:36.243 [main] WARN  FileUtils - Fail to close: 
+java.lang.NullPointerException
+	at com.lbc.nlp_algorithm.prepocess.core.utils.FileUtils.closeQuietly(FileUtils.java:16)
+	at com.lbc.nlp_algorithm.loadFile.loadData.LoadTrainData.loadData(LoadTrainData.java:72)
+	at liblinear.LrTrain.main(LrTrain.java:27)
+2016-09-27 21:22:18.561 [main] WARN  FileUtils - Fail to close: 
+java.lang.NullPointerException
+	at com.lbc.nlp_algorithm.prepocess.core.utils.FileUtils.closeQuietly(FileUtils.java:16)
+	at com.lbc.nlp_algorithm.loadFile.loadData.LoadTrainData.loadData(LoadTrainData.java:74)
+	at liblinear.LrTrain.main(LrTrain.java:27)
+2016-09-27 21:22:18.565 [main] WARN  FileUtils - Fail to close: 
+java.lang.NullPointerException
+	at com.lbc.nlp_algorithm.prepocess.core.utils.FileUtils.closeQuietly(FileUtils.java:16)
+	at com.lbc.nlp_algorithm.loadFile.loadData.LoadTrainData.loadData(LoadTrainData.java:74)
+	at liblinear.LrTrain.main(LrTrain.java:27)
+2016-09-27 21:32:06.629 [main] INFO  Configuration - Load properties file: prop=config.properties
+2016-09-27 21:42:30.655 [main] INFO  Configuration - Load properties file: prop=config.properties
+2016-09-27 21:42:30.656 [main] INFO  Configuration - Load properties file: prop=config-train.properties
+2016-09-27 21:42:30.657 [main] INFO  FDMetadata - Train dataset file extension: name=
+2016-09-27 21:43:01.532 [main] INFO  Configuration - Load properties file: prop=config.properties
+2016-09-27 21:43:01.533 [main] INFO  Configuration - Load properties file: prop=config-train.properties
+2016-09-27 21:43:01.534 [main] INFO  FDMetadata - Train dataset file extension: name=
+2016-09-27 21:45:33.581 [main] INFO  Configuration - Load properties file: prop=config.properties
+2016-09-27 21:45:33.582 [main] INFO  Configuration - Load properties file: prop=config-train.properties
+2016-09-27 21:47:19.898 [main] INFO  Configuration - Load properties file: prop=config.properties
+2016-09-27 21:47:19.899 [main] INFO  Configuration - Load properties file: prop=config-train.properties
+2016-09-27 21:48:01.588 [main] INFO  Configuration - Load properties file: prop=config.properties
+2016-09-27 21:48:01.589 [main] INFO  Configuration - Load properties file: prop=config-train.properties
+2016-09-27 21:48:38.845 [main] INFO  Configuration - Load properties file: prop=config.properties
+2016-09-27 21:48:38.846 [main] INFO  Configuration - Load properties file: prop=config-train.properties
+2016-09-27 21:54:49.474 [main] INFO  Configuration - Load properties file: prop=config.properties
+2016-09-27 21:54:49.475 [main] INFO  Configuration - Load properties file: prop=config-train.properties
+2016-09-27 21:55:55.970 [main] INFO  Configuration - Load properties file: prop=config.properties
+2016-09-27 21:55:55.971 [main] INFO  Configuration - Load properties file: prop=config-train.properties
+2016-09-27 21:57:10.707 [main] INFO  Configuration - Load properties file: prop=config.properties
+2016-09-27 21:57:10.709 [main] INFO  Configuration - Load properties file: prop=config-train.properties
+2016-09-27 21:57:36.910 [main] INFO  Configuration - Load properties file: prop=config.properties
+2016-09-27 21:57:36.911 [main] INFO  Configuration - Load properties file: prop=config-train.properties
