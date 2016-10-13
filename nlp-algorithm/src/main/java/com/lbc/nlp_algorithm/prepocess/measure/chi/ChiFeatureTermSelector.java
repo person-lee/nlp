@@ -13,6 +13,7 @@ import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -140,22 +141,24 @@ public class ChiFeatureTermSelector implements FeatureTermSelector {
 					docCountContainingWordInLabel = labelledDocs.get(label).size();
 				}
 				
-				// B: doc count containing the word not in this label
-				int docCountContainingWordNotInLabel = 0;
-				Iterator<Entry<String, Set<String>>> labelledIter = labelledDocs.entrySet().iterator();
-				while(labelledIter.hasNext()) {
-					Entry<String, Set<String>> labelledEntry = labelledIter.next();
-					String tmpLabel = labelledEntry.getKey();
-					if(!label.equals(tmpLabel)) {
-						docCountContainingWordNotInLabel += labelledEntry.getValue().size();
-					}
+				// all doc containing the word
+				int totalDocContainingWord = 0;
+				for (Entry<String, Set<String>> label : labelledDocs.entrySet()) {
+					totalDocContainingWord += label.getValue().size();
 				}
 				
+				// B: doc count containing the word not in this label
+				int docCountContainingWordNotInLabel = totalDocContainingWord - docCountContainingWordInLabel;
+				
 				// C: doc count not containing the word in this label
-				int docCountNotContainingWordInLabel = computeDocCountNotContainingWordInLabel(word, label);
+				int docCountNotContainingWordInLabel = 0;
+				int totalDocsInLabel = computeDocCountInLabel(label);
+				if (0 != totalDocsInLabel) {
+					docCountNotContainingWordInLabel = totalDocsInLabel - docCountContainingWordInLabel;
+				} 
 				
 				// D: doc count not containing the word not in this label
-				int docCountNotContainingWordNotInLabel = computeDocCountNotContainingWordNotInLabel(word, label);
+				int docCountNotContainingWordNotInLabel = context.getVectorMetadata().totalDocCount() - totalDocContainingWord - docCountNotContainingWordInLabel;
 				
 				// compute CHI value
 				int N = context.getVectorMetadata().totalDocCount();
@@ -171,45 +174,15 @@ public class ChiFeatureTermSelector implements FeatureTermSelector {
 			}
 		}
 
-		private int computeDocCountNotContainingWordInLabel(String word, String label) {
-			int count = 0;
-			Iterator<Entry<String,Map<String,Map<String,Term>>>> iter = context.getVectorMetadata().termTableIterator();
-			while(iter.hasNext()) {
-				Entry<String,Map<String,Map<String,Term>>> entry = iter.next();
-				String tmpLabel = entry.getKey();
-				// in this label
-				if(tmpLabel.equals(label)) {
-					Map<String, Map<String, Term>> labelledDocs = entry.getValue();
-					for(Entry<String, Map<String, Term>> docEntry : labelledDocs.entrySet()) {
-						// not containing this word
-						if(!docEntry.getValue().containsKey(word)) {
-							++count;
-						}
-					}
-					break;
+		private int computeDocCountInLabel(String label) {
+			Map<String, Map<String, Map<String, Term>>> termTable = context.getVectorMetadata().getTermTable();
+			if (MapUtils.isNotEmpty(termTable)) {
+				Map<String, Map<String, Term>> docs = termTable.get(label);
+				if (MapUtils.isNotEmpty(docs)) {
+					return docs.size();
 				}
 			}
-			return count;
-		}
-		
-		private int computeDocCountNotContainingWordNotInLabel(String word, String label) {
-			int count = 0;
-			Iterator<Entry<String,Map<String,Map<String,Term>>>> iter = context.getVectorMetadata().termTableIterator();
-			while(iter.hasNext()) {
-				Entry<String,Map<String,Map<String,Term>>> entry = iter.next();
-				String tmpLabel = entry.getKey();
-				// not in this label
-				if(!tmpLabel.equals(label)) {
-					Map<String, Map<String, Term>> labelledDocs = entry.getValue();
-					for(Entry<String, Map<String, Term>> docEntry : labelledDocs.entrySet()) {
-						// not containing this word
-						if(!docEntry.getValue().containsKey(word)) {
-							++count;
-						}
-					}
-				}
-			}
-			return count;
+			return 0;
 		}
 	}
 	

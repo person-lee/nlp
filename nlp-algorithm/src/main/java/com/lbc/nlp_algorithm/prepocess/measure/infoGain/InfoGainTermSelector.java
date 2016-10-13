@@ -63,13 +63,6 @@ public class InfoGainTermSelector implements FeatureTermSelector {
 				calculators.put(term, new InfoGainCalculator(iter, TermsWithMeasures, entropy));
 				executorService.execute(calculators.get(term));
 			}
-			
-			Date start = new Date();
-			int topN = (int) (TermsWithMeasures.size() * keptTermsPercent);
-			LOG.info("Terms selection for sort: topN=" + topN);
-			sortedResult = sort(TermsWithMeasures, topN);
-			Date finish = new Date();
-			LOG.info("infoGain terms sorted: " + ", timeTaken=" + (finish.getTime() - start.getTime()) + "(ms)");
 		} catch(Exception e){
 			LOG.error(e.getMessage());
 		} finally {
@@ -82,6 +75,13 @@ public class InfoGainTermSelector implements FeatureTermSelector {
 			}
 			LOG.info("Shutdown executor service: " + executorService);
 		}
+		
+		Date start = new Date();
+		int topN = (int) (TermsWithMeasures.size() * keptTermsPercent);
+		LOG.info("Terms selection for sort: topN=" + topN);
+		sortedResult = sort(TermsWithMeasures, topN);
+		Date finish = new Date();
+		LOG.info("infoGain terms sorted: " + ", timeTaken=" + (finish.getTime() - start.getTime()) + "(ms)");
 		
 		// wrap result
 		Set<TermFeatureable> mergedTerms = Sets.newHashSet();
