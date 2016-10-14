@@ -4,6 +4,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -14,11 +16,15 @@ import com.lbc.nlp_algorithm.prepocess.api.api.TermFeatureable;
 import com.lbc.nlp_algorithm.prepocess.api.common.FeaturedTerm;
 import com.lbc.nlp_algorithm.prepocess.core.common.AbstractComponent;
 import com.lbc.nlp_algorithm.prepocess.core.utils.MetricUtils;
+import com.lbc.nlp_modules.common.thread.ThreadPoolUtils;
 
 public class DocumentTFIDFComputation extends AbstractComponent {
 
 	private static final Log LOG = LogFactory.getLog(DocumentTFIDFComputation.class);
 	private Set<TermFeatureable> featuredTerms;
+	
+	private CountDownLatch latch;
+	private ExecutorService executorService;
 	
 	public DocumentTFIDFComputation(final Context context) {
 		super(context);
@@ -26,48 +32,83 @@ public class DocumentTFIDFComputation extends AbstractComponent {
 
 	@Override
 	public void fire() {
+		latch = new CountDownLatch(context.getVectorMetadata().getTermTable().size());
+		executorService = ThreadPoolUtils.getExecutor();
+		
 		featuredTerms = context.getVectorMetadata().featuredTerms();
 		
 		// for each document, compute TF, IDF, TF-IDF
-		Iterator<Entry<String, Map<String, Map<String, Term>>>> iter = context.getVectorMetadata().termTableIterator();
-		while(iter.hasNext()) {
-			Entry<String, Map<String, Map<String, Term>>> labelledDocsEntry = iter.next();
-			String label = labelledDocsEntry.getKey();
-			LOG.info("Compute TF-IDF for:label=" + label);
-			Map<String, Map<String, Term>>  docs = labelledDocsEntry.getValue();
-			Iterator<Entry<String, Map<String, Term>>> docsIter = docs.entrySet().iterator();
-			while(docsIter.hasNext()) {
-				Entry<String, Map<String, Term>> docsEntry = docsIter.next();
-				String doc = docsEntry.getKey();
-				Map<String, Term> terms = docsEntry.getValue();
-				Iterator<Entry<String, Term>> termsIter = terms.entrySet().iterator();
-				LOG.debug("label=" + label + ", doc=" + doc + ", terms=" + terms);
-				while(termsIter.hasNext()) {
-					Entry<String, Term> termEntry = termsIter.next();
-					String word = termEntry.getKey();
-					// check whether word is a featured word
-					if(isFeaturedWord(word)) {
-						Term term = termEntry.getValue();
-						int freq = term.getFreq();
-						int termCount = context.getVectorMetadata().termCount(label, doc);
-						double tf = MetricUtils.tf(freq, termCount);
-						int totalDocCount = context.getVectorMetadata().totalDocCount();
-						int docCountContainingTerm = context.getVectorMetadata().docCount(term);
-						
-						double idf = MetricUtils.idf(totalDocCount, docCountContainingTerm);
-						termEntry.getValue().setIdf(idf);
-						termEntry.getValue().setTf(tf);
-						termEntry.getValue().setTfidf(MetricUtils.tfidf(tf, idf));
-						LOG.debug("Term detail: label=" + label + ", doc=" + doc + ", term=" + term);
-					} else {
-						// remove term not contained in feature vector
-						termsIter.remove();
-						LOG.debug("Not in CHI vector: word=" + word);
+		try {
+			Map<String, Map<String, Map<String, Term>>> termTable = context.getVectorMetadata().getTermTable();
+			for (Entry<String, Map<String, Map<String, Term>>> eachCate : termTable.entrySet()) {
+				executorService.execute(new CalTFIDF(eachCate));
+			}
+		} catch (Exception e) {
+			LOG.error(e.getMessage());
+		} finally {
+			try {
+				latch.await();
+			} catch (InterruptedException e) { 
+				LOG.error("InterruptedException" + e.getMessage());
+			} catch(Exception e) {
+				LOG.error("execute error: " + e.getMessage());
+			} 
+			LOG.info("Shutdown executor service: " + executorService);
+		}
+	}
+	
+	private class CalTFIDF implements Runnable{
+		private Entry<String, Map<String, Map<String, Term>>> labelledDocsEntry;
+		
+		public CalTFIDF(Entry<String, Map<String, Map<String, Term>>> labelledDocsEntry) {
+			this.labelledDocsEntry = labelledDocsEntry;
+		}
+		
+		@Override
+		public void run() {
+			try {
+				String label = labelledDocsEntry.getKey();
+				LOG.info("Compute TF-IDF for:label=" + label);
+				Map<String, Map<String, Term>>  docs = labelledDocsEntry.getValue();
+				Iterator<Entry<String, Map<String, Term>>> docsIter = docs.entrySet().iterator();
+				while(docsIter.hasNext()) {
+					Entry<String, Map<String, Term>> docsEntry = docsIter.next();
+					String doc = docsEntry.getKey();
+					Map<String, Term> terms = docsEntry.getValue();
+					Iterator<Entry<String, Term>> termsIter = terms.entrySet().iterator();
+					LOG.debug("label=" + label + ", doc=" + doc + ", terms=" + terms);
+					while(termsIter.hasNext()) {
+						Entry<String, Term> termEntry = termsIter.next();
+						String word = termEntry.getKey();
+						// check whether word is a featured word
+						if(isFeaturedWord(word)) {
+							Term term = termEntry.getValue();
+							int freq = term.getFreq();
+							int termCount = context.getVectorMetadata().termCount(label, doc);
+							double tf = MetricUtils.tf(freq, termCount);
+							int totalDocCount = context.getVectorMetadata().totalDocCount();
+							int docCountContainingTerm = context.getVectorMetadata().docCount(term);
+							
+							double idf = MetricUtils.idf(totalDocCount, docCountContainingTerm);
+							termEntry.getValue().setIdf(idf);
+							termEntry.getValue().setTf(tf);
+							termEntry.getValue().setTfidf(MetricUtils.tfidf(tf, idf));
+							LOG.debug("Term detail: label=" + label + ", doc=" + doc + ", term=" + term);
+						} else {
+							// remove term not contained in feature vector
+							termsIter.remove();
+							LOG.debug("Not in CHI vector: word=" + word);
+						}
 					}
 				}
+				LOG.info("TF-IDF computed: label=" + label);
+			} catch (Exception e) {
+				LOG.error(e.getMessage());
+				throw new RuntimeException(e);
+			} finally {
+				latch.countDown();
 			}
-			LOG.info("TF-IDF computed: label=" + label);
-		}		
+		}
 	}
 	
 	private boolean isFeaturedWord(String word) {

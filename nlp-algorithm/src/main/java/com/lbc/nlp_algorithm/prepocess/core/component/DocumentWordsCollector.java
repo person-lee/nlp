@@ -148,19 +148,6 @@ public class DocumentWordsCollector extends AbstractComponent {
 			String doc = file.getAbsolutePath();
 			LOG.debug("Process document: label=" + label + ", file=" + doc);
 			analyze(file, label);
-//			List<Set<String>> sentences = Lists.newArrayList();
-//			Map<String, Term> terms = analyzer.analyze(file, sentences);
-//			LOG.info(label + "," + file.getName() + "," + terms.size());
-//			// filter terms
-//			filterTerms(terms);
-//			// construct memory structure
-//			context.getVectorMetadata().addTerms(label, doc, terms);
-//			// add inverted table as needed
-//			context.getVectorMetadata().addTermsToInvertedTable(label, doc, terms);
-//			// add sentence
-//			context.getVectorMetadata().addSentence(label, doc, sentences);
-//			LOG.debug("Done: file=" + file + ", termCount=" + terms.size());
-//			LOG.debug("Terms in a doc: terms=" + terms);
 		}
 		
 		private void analyze(File file, String label) {
@@ -182,7 +169,7 @@ public class DocumentWordsCollector extends AbstractComponent {
 					// add sentence
 					context.getVectorMetadata().addSentence(label, quest, sentences);
 				}
-			} catch (IOException e) {
+			} catch (Exception e) {
 				throw new RuntimeException("", e);
 			} finally {
 				try {
@@ -195,5 +182,4 @@ public class DocumentWordsCollector extends AbstractComponent {
 			}
 		}
 	}
-
 }
