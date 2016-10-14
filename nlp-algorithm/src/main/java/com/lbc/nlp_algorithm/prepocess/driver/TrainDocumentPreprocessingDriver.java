@@ -12,24 +12,6 @@ import com.lbc.nlp_algorithm.prepocess.core.component.train.OutputtingQuantizedT
 import com.lbc.nlp_algorithm.prepocess.core.utils.PreprocessingUtils;
 
 /**
- * The driver for starting components to process TRAIN data set.
- * It includes the following 5 components:
- * <ol>
- * <li>{@link BasicInformationCollector}</li>
- * <li>{@link DocumentWordsCollector}</li>
- * <li>{@link FeaturedTermVectorSelector}</li>
- * <li>{@link DocumentTFIDFComputation}</li>
- * <li>{@link OutputtingQuantizedTrainData}</li>
- * </ol>
- * Executing above components in order can output the normalized
- * data for feeding libSVM classifier developed by <code>Lin Chih-Jen</code>
- * (<a href="www.csie.ntu.edu.tw/~cjlin/libsvm/‎">www.csie.ntu.edu.tw/~cjlin/libsvm/‎</a>)</br>
- * It can produce 2 files represented by the specified properties:
- * <ol>
- * <li>a term vector file property: <code>processor.dataset.chi.term.vector.file</code></li>
- * <li>a label vector file property: <code>processor.dataset.label.vector.file</code></li>
- * </ol>
- * which are used by {@link TestDocumentPreprocessingDriver} to produce TEST vector data.
  * 
  * @author Shirdrn
  */

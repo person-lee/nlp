@@ -26,7 +26,7 @@ public class TrainModelImpl extends AbstractComponent implements TrainModel {
 	private static final Logger log = LoggerFactory.getLogger(TrainModel.class.getName());
 	
 	private SolverType solverType = SolverType.L2R_LR_DUAL;
-	private Double bestc = 15d;
+	private Double bestc = 14d;
 	private Double esp = 0.01d;
 	private Model model = null;
 	private final int fold = 5;		//交差验证划分份数
