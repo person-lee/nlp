@@ -111,7 +111,8 @@ public class DocumentPreprocess extends AbstractComponent{
 					String file_name = file.getName();
 					for(String line : FileUtils.readLines(file, "UTF-8")){
 						if (StringUtils.isNotBlank(line)) {
-							String content = StringUtils.trimToEmpty(line);
+							String[] quest = line.split("\t");
+							String content = StringUtils.trimToEmpty(quest[1]);
 							String occured_name = occured_data.get(content);
 							if(StringUtils.isNoneBlank(occured_name)){
 								LOG.warn(content + "\t\t" + occured_name + "####" + file_name);

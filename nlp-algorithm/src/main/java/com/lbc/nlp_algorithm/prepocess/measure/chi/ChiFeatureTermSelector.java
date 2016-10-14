@@ -129,6 +129,7 @@ public class ChiFeatureTermSelector implements FeatureTermSelector {
 		}
 		
 		private void processSingleLabelledData() {
+			LOG.info("总共" + context.getVectorMetadata().getInvertedTable().size() + "个词。");
 			Iterator<Entry<String, Map<String, Set<String>>>> iter = context.getVectorMetadata().invertedTableIterator();
 			while(iter.hasNext()) {
 				Entry<String, Map<String, Set<String>>> entry = iter.next();

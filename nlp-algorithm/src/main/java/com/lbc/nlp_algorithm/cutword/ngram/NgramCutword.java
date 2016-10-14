@@ -176,7 +176,7 @@ public class NgramCutword implements Cutword{
     
     public static void main(String[] args) {
     	NgramCutword tokenizer = new NgramCutword(1, 2);
-        List<String> tokens = tokenizer.doCutword("你們sadf32的211http://www.163.com限時達是sdfa什麽意思？京卷");
+        List<String> tokens = tokenizer.doCutword("cate62 BRAND 、可以看网业上的在线视频吗?(falsh视频)");
         Set<String> noDupTokens = new HashSet<String>();
         noDupTokens.addAll(tokens);
         for (String token : noDupTokens) {

@@ -166,13 +166,13 @@ public class InfoGainTermSelector implements FeatureTermSelector {
 				int C = docCountNotContainingWordInLabel;
 				int D = docCountNotContainingWordNotInLabel;
 				
-				double tempA = (double)(A / (A + B));
-				double tempB = (double)(B / (A + B));
-				double tempC = (double)(C / (C + D));
-				double tempD = (double)(D / (C + D));
+				double tempA = (double)A / (A + B);
+				double tempB = (double)B / (A + B);
+				double tempC = (double)C / (C + D);
+				double tempD = (double)D / (C + D);
 				
-				tempAB += tempA * Math.log(tempA) + tempB * Math.log(tempB);
-				tempCD += tempC * Math.log(tempC) + tempD * Math.log(tempD);
+				tempAB += getLog(tempA) + getLog(tempB);
+				tempCD += getLog(tempC) + getLog(tempD);
 			}
 			double infoGain = entropy + docProbilityContainingWord * tempAB + (1 - docProbilityContainingWord) * tempCD;
 			
@@ -180,7 +180,15 @@ public class InfoGainTermSelector implements FeatureTermSelector {
 			term.setMeasureValue(infoGain);
 			terms.put(word, term);
 		}
-
+		
+		private double getLog(double value) {
+			if (0 != value) {
+				return value * Math.log(value);
+			} else {
+				return 0;
+			}
+		}
+		
 		private int computeDocCountInLabel(String label) {
 			Map<String, Map<String, Map<String, Term>>> termTable = context.getVectorMetadata().getTermTable();
 			if (MapUtils.isNotEmpty(termTable)) {

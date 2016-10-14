@@ -15,11 +15,11 @@ public class ThreadPoolUtils {
 	/**
 	 * 线程池维护线程的核心(最少)数量
 	 */
-	private final static int CORE_POOL_SIZE = 10;
+	private final static int CORE_POOL_SIZE = 1;
 	/**
 	 * 线程池维护线程的最大数量
 	 */
-	private final static int MAXIMUM_POOL_SIZE = 10;
+	private final static int MAXIMUM_POOL_SIZE = 1;
 	/**
 	 * 线程池维护线程所允许的空闲时间
 	 */

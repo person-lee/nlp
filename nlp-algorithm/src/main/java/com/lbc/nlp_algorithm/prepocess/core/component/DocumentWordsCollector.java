@@ -176,11 +176,11 @@ public class DocumentWordsCollector extends AbstractComponent {
 					// filter terms
 					filterTerms(terms);
 					// construct memory structure
-					context.getVectorMetadata().addTerms(label, arr[0], terms);
+					context.getVectorMetadata().addTerms(label, quest, terms);
 					// add inverted table as needed
-					context.getVectorMetadata().addTermsToInvertedTable(label, arr[0], terms);
+					context.getVectorMetadata().addTermsToInvertedTable(label, quest, terms);
 					// add sentence
-					context.getVectorMetadata().addSentence(label, arr[0], sentences);
+					context.getVectorMetadata().addSentence(label, quest, sentences);
 				}
 			} catch (IOException e) {
 				throw new RuntimeException("", e);
