@@ -1,5 +1,6 @@
 package com.lbc.nlp_algorithm.prepocess.core.component.train;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import org.apache.commons.collections.MapUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.lbc.nlp_algorithm.classification.domain.ModelVector;
 import com.lbc.nlp_algorithm.classification.liblinear.FeatureNode;
@@ -17,6 +19,7 @@ import com.lbc.nlp_algorithm.prepocess.api.api.Context;
 import com.lbc.nlp_algorithm.prepocess.api.api.constants.ConfigKeys;
 import com.lbc.nlp_algorithm.prepocess.core.common.AbstractComponent;
 import com.lbc.nlp_algorithm.prepocess.core.component.train.schedule.TrainModelImpl;
+import com.lbc.nlp_domain.PredictResult;
 import com.lbc.nlp_modules.common.tuple.Pair;
 
 public class TrainModelController extends AbstractComponent {
@@ -58,8 +61,10 @@ public class TrainModelController extends AbstractComponent {
 					context.getConfiguration().get(ConfigKeys.DATASET_TRAIN_MODEL_FILE));
 			
 			// 模型准确率验证
-			double accuracy = ModelValid.computeAccuracy(testVector, trainModel.getModel());
-			
+			String[] labels = context.getFDMetadata().getPreprocessDir().list();
+			List<PredictResult> predictResults = Lists.newArrayList();
+			double accuracy = ModelValid.computeAccuracy(testVector, trainModel.getModel(), predictResults);
+			ModelValid.calculatePerformance(predictResults, Arrays.asList(labels));
 			LOG.info("该模型准确率为：" + accuracy);
 		} catch (Exception e) {
 			LOG.error(e.getMessage());
@@ -82,8 +87,13 @@ public class TrainModelController extends AbstractComponent {
 				List<FeatureNode[]> sentences = cate.getValue();
 				Collections.shuffle(sentences);
 				int sep_index = (int)(sentences.size() * ratio);
-				List<FeatureNode[]> trainSentences = sentences.subList(0, sep_index);
-				List<FeatureNode[]> testSentences = sentences.subList(sep_index, sentences.size());
+				List<FeatureNode[]> trainSentences = sentences;
+				List<FeatureNode[]> testSentences = sentences;
+				if (sep_index < 10) {
+					trainSentences.clear();testSentences.clear();
+					trainSentences.addAll(sentences.subList(0, sep_index));
+					testSentences.addAll(sentences.subList(sep_index, sentences.size()));
+				} 
 				trainVector.put(label, trainSentences);
 				testVector.put(label, testSentences);
 			}

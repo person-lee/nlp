@@ -46,7 +46,7 @@ public class DocumentPreprocess extends AbstractComponent{
 			}
 			
 			try {
-				File dupFile = new File(context.getFDMetadata().getPreprocessDir(), context.getFDMetadata().getDupFile());
+				File dupFile = new File(context.getFDMetadata().getOutputDir(), context.getFDMetadata().getDupFile());
 				uniqFilesContent(allFiles, context.getFDMetadata().getPreprocessDir(), dupFile);
 			} catch (Exception e) {
 				LOG.error(e.getMessage());
