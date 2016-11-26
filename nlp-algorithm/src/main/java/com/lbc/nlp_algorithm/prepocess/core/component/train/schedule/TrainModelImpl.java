@@ -25,7 +25,7 @@ import com.lbc.nlp_algorithm.prepocess.core.common.AbstractComponent;
 public class TrainModelImpl extends AbstractComponent implements TrainModel {
 	private static final Logger log = LoggerFactory.getLogger(TrainModel.class.getName());
 	
-	private SolverType solverType = SolverType.L2R_LR_DUAL;
+	private SolverType solverType = SolverType.MCSVM_CS;
 	private Double bestc = 14d;
 	private Double esp = 0.01d;
 	private Model model = null;
