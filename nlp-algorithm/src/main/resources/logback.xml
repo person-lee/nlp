@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration>   
-   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">   
-    <!-- encoder 默认配置为PatternLayoutEncoder -->   
-    <encoder>   
-      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>   
-    </encoder>   
-  </appender>   
-    
-  <!--logback.LogbackDemo：类的全路径 -->   
-  <logger name="com.lbc.nlp_algorithm.common.parseFile.ParseText" level="INFO" additivity="false">  
-    <appender-ref ref="STDOUT"/>  
-  </logger>   
-    
-  <root level="ERROR">             
-    <appender-ref ref="STDOUT" />   
-  </root>     
+<configuration>
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%date{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} %L - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>/export/home/tomcat/logs/jos.jimi.jd.com/jos.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>/export/Domains/lbc.com/server1/logs/nlppf.%d{yyyy-MM-dd}.log</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%date{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} %L - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- project default level -->
+	<logger name="com.lbc" level="INFO" />
+	<logger name="org.springframework" level="INFO" />
+	<logger name="org.apache" value="INFO" />
+	<root level="INFO">
+		<appender-ref ref="console" />
+		<appender-ref ref="rollingFile" />
+	</root>
 </configuration>
