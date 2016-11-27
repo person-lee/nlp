@@ -15,7 +15,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.lbc.nlp_modules.common.StringUtil;
+import org.apache.commons.lang3.StringUtils;
+
 import com.lbc.nlp_modules.common.tree.SmartForest;
 import com.lbc.nlp_modules.common.tree.SmartGetWord;
 
@@ -156,7 +157,7 @@ enum PinyinUtil {
 
 	public List<String> convert(String str, PinyinFormat format) {
 
-		if (StringUtil.isBlank(str)) {
+		if (StringUtils.isBlank(str)) {
 			return Collections.emptyList();
 		}
 

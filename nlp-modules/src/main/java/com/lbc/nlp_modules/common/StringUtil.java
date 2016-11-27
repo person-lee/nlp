@@ -7,6 +7,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
+
+import org.apache.commons.lang3.StringUtils;
 
 public class StringUtil {
 
@@ -44,7 +47,7 @@ public class StringUtil {
 	 * @return
 	 */
 	public static String rmHtmlTag(String input) {
-		if (isBlank(input)) {
+		if (StringUtils.isBlank(input)) {
 			return "";
 		}
 		int length = input.length();
@@ -99,43 +102,34 @@ public class StringUtil {
 		return sb.toString();
 	}
 
-	/**
-	 * 判断字符串是否为空
-	 *
-	 * @param cs
-	 * @return
-	 */
-	public static boolean isBlank(CharSequence cs) {
-		int strLen;
-		if (cs == null || (strLen = cs.length()) == 0) {
-			return true;
-		}
-		for (int i = 0; i < strLen; i++) {
-			if (Character.isWhitespace(cs.charAt(i)) == false) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	/**
-	 * 判断字符串是否不为空
-	 *
-	 * @param cs
-	 * @return
-	 */
-	public static boolean isNotBlank(CharSequence cs) {
-		return !isBlank(cs);
-
-	}
-
+	public static String removeSpecialChars(String str) {
+        if (str == null) {
+            return "";
+        }
+        String s = trim(str);
+        // 清除掉所有特殊字符
+        String regEx = "[ `~!@#$%^&*()_+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）—|{}【】‘；：”“’\"。，、？\\-]";
+        Matcher m = null;
+        try {
+            Pattern p = Pattern.compile(regEx);
+            m = p.matcher(s);
+        } catch (PatternSyntaxException p) {
+            p.printStackTrace();
+            if (m == null) {
+                throw new NullPointerException(
+                        "在removeNotNumber方法中Matcher不能为NULL，请检查");
+            }
+        }
+        return m.replaceAll("").trim();
+    }
+	
 	public static String makeSqlInString(String str) {
 		String[] strs = str.split(",");
 		StringBuilder sb = new StringBuilder();
 		String field = null;
 		for (int i = 0; i < strs.length; i++) {
 			field = strs[i].trim();
-			if (isNotBlank(field)) {
+			if (StringUtils.isNoneBlank(field)) {
 				sb.append(DY);
 				sb.append(field);
 				sb.append(DY);
@@ -249,20 +243,6 @@ public class StringUtil {
 		return sb.toString();
 	}
 
-	public static boolean isBlank(char[] chars) {
-		// TODO Auto-generated method stub
-		int strLen;
-		if (chars == null || (strLen = chars.length) == 0) {
-			return true;
-		}
-		for (int i = 0; i < strLen; i++) {
-			if (Character.isWhitespace(chars[i]) == false) {
-				return false;
-			}
-		}
-		return true;
-	}
-
 	/**
 	 * 正则匹配第一个
 	 * 
@@ -341,7 +321,7 @@ public class StringUtil {
      * @return  小写化的字符串
      */
     public static String convertToLower(String text) {
-        if (isBlank(text)) {
+        if (StringUtils.isBlank(text)) {
         	return text;
         }
         char[] array = text.toCharArray();
@@ -381,4 +361,11 @@ public class StringUtil {
 	public static boolean isEnglishOrNumberCharacter(final char ch) {
 		return isEnglishCharacter(ch) || Character.isDigit(ch);
 	}
+	
+	//判断一个字符串是否为数字
+	public static boolean isNumber(String str) {
+		String reg = "^-{0,1}[0-9]+(.[0-9]+)?$";
+		return str.matches(reg);
+	}
+		
 }

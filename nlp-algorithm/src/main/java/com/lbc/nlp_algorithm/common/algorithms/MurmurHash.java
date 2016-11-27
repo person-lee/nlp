@@ -3,7 +3,13 @@ package com.lbc.nlp_algorithm.common.algorithms;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
-public class MurmurHash {
+import com.lbc.nlp_algorithm.similarity.hash.Hash;
+
+public class MurmurHash implements Hash{
+	@Override
+	public int hash(String str) {
+		return hash32(str);
+	}
 
 	public static int hash32(String doc) {
 		byte[] buffer = doc.getBytes(Charset.forName("utf-8"));

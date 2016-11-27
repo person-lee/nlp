@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.lbc.nlp_modules.common.StringUtil;
 import com.lbc.nlp_modules.common.tree.Forest;
 import com.lbc.nlp_modules.common.tree.GetWord;
@@ -113,7 +115,7 @@ public enum Converter {
     }
 
     private void strConvert(String str, StringBuilder sb) {
-        if (StringUtil.isBlank(str)) {
+        if (StringUtils.isBlank(str)) {
             return;
         }
         for (int i = 0; i < str.length(); i++) {
@@ -123,7 +125,7 @@ public enum Converter {
 
 
     public String convert(String str) {
-        if (StringUtil.isBlank(str)) {
+        if (StringUtils.isBlank(str)) {
             return str;
         }
 

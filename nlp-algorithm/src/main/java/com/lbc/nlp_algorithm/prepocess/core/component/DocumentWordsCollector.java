@@ -6,7 +6,6 @@ import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +20,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.lbc.nlp_algorithm.prepocess.api.api.Context;
 import com.lbc.nlp_algorithm.prepocess.api.api.DocumentAnalyzer;
 import com.lbc.nlp_algorithm.prepocess.api.api.Term;
@@ -33,7 +33,7 @@ import com.lbc.nlp_modules.common.thread.ThreadPoolUtils;
 public class DocumentWordsCollector extends AbstractComponent {
 	
 	private static final Log LOG = LogFactory.getLog(DocumentWordsCollector.class);
-	private final Set<TermFilter> filters = new HashSet<TermFilter>();
+	private final Set<TermFilter> filters = Sets.newHashSet();
 	private ExecutorService executorService;
 	private CountDownLatch latch;
 	
