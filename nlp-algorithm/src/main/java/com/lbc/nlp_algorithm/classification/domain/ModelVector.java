@@ -3,13 +3,12 @@ package com.lbc.nlp_algorithm.classification.domain;
 import java.util.List;
 import java.util.Map;
 
-import com.lbc.nlp_algorithm.classification.liblinear.FeatureNode;
-
 /**
  * 用于训练的模型向量化表示
+ * @param <T>
  */
 
-public class ModelVector {
+public class ModelVector<T> {
 
 	/**
 	 * 特征向量的维度
@@ -22,30 +21,30 @@ public class ModelVector {
 	/**
 	 * 向量化的数据
 	 */
-	private Map<Integer, List<FeatureNode[]>> vectors;
+	private Map<Integer, List<T[]>> vectors;
 	
-	public static class Builder {
+	public static class Builder<T> {
 		private int featureNum;
 		private int sampleNum;
-		private Map<Integer, List<FeatureNode[]>> vectors;
+		private Map<Integer, List<T[]>> vectors;
 		
-		public Builder featureNum(int featureNum) {
+		public Builder<T> featureNum(int featureNum) {
 			this.featureNum = featureNum;
 			return this;
 		}
 		
-		public Builder sampleNum(int sampleNum) {
+		public Builder<T> sampleNum(int sampleNum) {
 			this.sampleNum = sampleNum;
 			return this;
 		}
 		
-		public Builder vectors(Map<Integer, List<FeatureNode[]>> vectors) {
+		public Builder<T> vectors(Map<Integer, List<T[]>> vectors) {
 			this.vectors = vectors;
 			return this;
 		}
 		
-		public ModelVector build() {
-			return new ModelVector(this);
+		public ModelVector<T> build() {
+			return new ModelVector<T>(this);
 		}
 	}
 	
@@ -67,10 +66,10 @@ public class ModelVector {
 	public void setSampleNum(int sampleNum) {
 		this.sampleNum = sampleNum;
 	}
-	public Map<Integer, List<FeatureNode[]>> getVectors() {
+	public Map<Integer, List<T[]>> getVectors() {
 		return vectors;
 	}
-	public void setVectors(Map<Integer, List<FeatureNode[]>> vectors) {
+	public void setVectors(Map<Integer, List<T[]>> vectors) {
 		this.vectors = vectors;
 	}
 	
