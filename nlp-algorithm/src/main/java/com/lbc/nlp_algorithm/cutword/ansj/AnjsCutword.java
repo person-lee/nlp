@@ -3,6 +3,7 @@ package com.lbc.nlp_algorithm.cutword.ansj;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -11,6 +12,7 @@ import org.ansj.domain.Term;
 import org.ansj.library.UserDefineLibrary;
 import org.ansj.recognition.NatureRecognition;
 import org.ansj.splitWord.analysis.ToAnalysis;
+import org.ansj.util.MyStaticValue;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -39,6 +41,11 @@ public class AnjsCutword implements Cutword {
     private static Boolean isLoading = false;
 
     private void init() throws IOException {
+    	URL is = AnjsCutword.class.getClassLoader().getResource("ansj_seg_model/");
+        MyStaticValue.userLibrary = is.getPath() + "default.dic";
+        MyStaticValue.crfModel = is.getPath() + "crf.model";
+        MyStaticValue.ambiguityLibrary = is.getPath() + "ambiguity.dic";
+        
     	if(!isLoading){
     		addDigwords();
             addAddressWords();
